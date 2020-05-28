@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import SearchBar from "./SearchBar";
 import youtube from "../api/youtube";
+import VideoList from "./VideoList";
 
 export default class App extends Component {
-  state = { videos: [] };
+  state = { videos: [], selectedVideo: null };
 
   onTermSubmit = async (term) => {
     const KEY = "AIzaSyBC5QBpNk711Ign99PSO4HFR00HyVLBJxU";
@@ -22,11 +23,18 @@ export default class App extends Component {
     this.setState({ videos: datavideos });
   };
 
+  onVideoSelect = (video) => {
+    console.log("from the app", video);
+  };
+
   render() {
     return (
       <div className="ui container">
-        <SearchBar onFormSubmit={this.onTermSubmit} />I have{" "}
-        {this.state.videos.length}
+        <SearchBar onFormSubmit={this.onTermSubmit} />
+        <VideoList
+          onVideoSelect={this.onVideoSelect}
+          videos={this.state.videos}
+        />
       </div>
     );
   }
